@@ -12,12 +12,15 @@ import { NewTaskComponent } from './components/new-task/new-task.component';
 import { NewPomodoroComponent } from './components/new-pomodoro/new-pomodoro.component';
 import { AboutComponent } from './components/about/about.component';
 
+import { TaskService } from './services/task.service';
+import { TimerComponent } from './components/timer/timer.component';
+
 const appRoutes: Routes = [
     {path: "", component: HomeComponent},
-    {path: "dashboard", component: DashboardComponent},  
-    {path: "about", component: AboutComponent},  
-    {path: "new-task", component: NewTaskComponent},  
-    {path: "new-pomodoro", component: NewPomodoroComponent}  
+    {path: "dashboard", component: DashboardComponent},
+    {path: "about", component: AboutComponent},
+    {path: "new-task", component: NewTaskComponent},
+    {path: "new-pomodoro", component: NewPomodoroComponent}
 ];
 
 @NgModule({
@@ -28,7 +31,8 @@ const appRoutes: Routes = [
     NavbarComponent,
     NewTaskComponent,
     NewPomodoroComponent,
-    AboutComponent
+    AboutComponent,
+    TimerComponent
   ],
   imports: [
     BrowserModule,
@@ -36,7 +40,7 @@ const appRoutes: Routes = [
     HttpModule,
     RouterModule.forRoot(appRoutes)
   ],
-  providers: [],
+  providers: [TaskService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

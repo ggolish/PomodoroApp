@@ -9,13 +9,27 @@ const taskSchema = new mongoose.Schema({
     type: String,
     default: "No description."
   },
-  pomodoros: {
+  total: {
     type: Number,
     default: 0
   },
-  date: {
-    type: Date,
-    default: Date.now
+  pomodoros: [{
+    amount: {
+      type: Number,
+      default: 1
+    },
+    length: {
+      type: Number,
+      default: 25
+    },
+    date: {
+      type: Date,
+      default: new Date
+    }
+  }],
+  active: {
+    type: Boolean,
+    default: true
   }
 });
 
@@ -29,14 +43,26 @@ module.exports.addTask = function(name, description, callback) {
   newTask.save(callback);
 }
 
-module.exports.getTasks = function(callback) {
-  Task.find({}, callback);
+module.exports.getActiveTasks = function(callback) {
+  Task.find({active: true}, callback);
 }
 
-module.exports.incrementPomodoros = function(id, callback) {
-  Task.update({_id: id}, {$inc: {pomodoros: 1}}, callback);
+module.exports.getArchivedTasks = function(callback) {
+  Task.find({active: false}, callback);
+}
+
+module.exports.updateTask = function(id, amount, length, callback) {
+  Task.update({_id: id}, {$push: {pomodoros: {amount: amount, length: length}}, $inc: {total: amount}}, callback);
 }
 
 module.exports.removeTask = function(id, callback) {
   Task.remove({_id: id}, callback);
+}
+
+module.exports.archiveTask = function(id, callback) {
+  Task.update({_id: id}, {$set: {active: false}}, callback);
+}
+
+module.exports.activateTask = function(id, callback) {
+  Task.update({_id: id}, {$set: {active: true}}, callback);
 }

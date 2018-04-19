@@ -1,4 +1,29 @@
-<app-navbar></app-navbar>
-<p>
-  new-pomodoro works!
-</p>
+<div *ngIf="!pomodoroStart">
+  <app-navbar></app-navbar>
+  <form (submit)="startTimer()">
+    <div class="form-group">
+      <label>Pomodoro Length (minutes)</label>
+      <input class="form-control" type="number" [(ngModel)]="pomodoroLength" name="pomodoroLength" value="25" step=1 min=0 max=99 required>
+    </div>
+    <div class="form-group">
+      <label>Short Break Length (minutes)</label>
+      <input class="form-control" type="number" [(ngModel)]="shortBreakLength" name="shortBreakLength" value="5" step=1 min=0 max=99 required>
+    </div>
+    <div class="form-group">
+      <label>Long Break Length (minutes)</label>
+      <input class="form-control" type="number" [(ngModel)]="longBreakLength" name="longBreakLength" value="15" step=1 min=0 max=99 required>
+    </div>
+    <div class="form-group">
+      <label>Choose Task</label>
+      <select class="form-control" [(ngModel)]="chosenTask" name="chosenTask">
+        <option *ngFor="let task of tasks; let i = index" value={{i}} placeholder="Choose a task..." required>{{task.name}}</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <button type="submit" class="btn btn-secondary">Start Pomodoro</button>
+    </div>
+  </form>
+</div>
+<div *ngIf="pomodoroStart">
+  <app-timer [countTime]="timerStart" [status]="timerStatus" (notifier)="onTimerChange($event)"></app-timer>
+</div>

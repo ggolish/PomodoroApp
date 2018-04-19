@@ -1,7 +1,60 @@
 <app-navbar></app-navbar>
 <div id="dashboard-summary">
   <h2>Pomodoro Summary</h2>
-  <p>There are no pomodoros to display.</p>
-  <h2>Task Summary</h2>
-  <p>There are no tasks to display.</p>
+  <div *ngIf="pomodoroSum > 0">
+    <table class="table table-hover">
+      <tr>
+        <th scope="row">Total Pomodoros
+        <td>{{pomodoroSum}}
+        <th scope="row">Total Time
+        <td>{{minuteSum}} minutes
+    </table>
+  </div>
+  <div *ngIf="pomodoroSum <= 0">
+    <p>There are no pomodoros to display.</p>
+  </div>
+  <h2>Active Tasks</h2>
+  <div *ngIf="activeTasks.length > 0">
+    <table class="table table-hover">
+      <tr>
+        <th scope="col">Name
+        <th scope="col">Description
+        <th scope="col">Pomodoros
+        <th scope="col">
+      </tr>
+      <tr *ngFor="let task of activeTasks">
+        <td>{{task.name}}
+        <td>{{task.description}}
+        <td>{{task.total}}
+        <td>
+          <button (click)="archiveTask(task._id)" class="btn btn-primary">Archive</button>
+          <button (click)="deleteTask(task._id)" class="btn btn-secondary">Delete</button>
+      </tr>
+    </table>
+  </div>
+  <div *ngIf="activeTasks.length == 0">
+    <p>There are no active tasks to display.</p>
+  </div>
+  <h2>Archived Tasks</h2>
+  <div *ngIf="archivedTasks.length > 0">
+    <table class="table table-hover">
+      <tr>
+        <th scope="col">Name
+        <th scope="col">Description
+        <th scope="col">Pomodoros
+        <th scope="col">
+      </tr>
+      <tr *ngFor="let task of archivedTasks">
+        <td>{{task.name}}
+        <td>{{task.description}}
+        <td>{{task.total}}
+        <td>
+          <button (click)="activateTask(task._id)" class="btn btn-primary">Activate</button>
+          <button (click)="deleteTask(task._id)" class="btn btn-secondary">Delete</button>
+      </tr>
+    </table>
+  </div>
+  <div *ngIf="archivedTasks.length == 0">
+    <p>There are no archived tasks to display.</p>
+  </div>
 </div>

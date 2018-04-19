@@ -5,25 +5,32 @@ const Task = require("../models/task");
 
 // Add a new task to the database
 router.post("/add", (req, res) => {
-  console.log("Adding a task!")
   Task.addTask(req.body.name, req.body.description, (err) => {
-    if(err) throw err;
+    if(err) res.json({success: false});
     res.json({success: true});
   });
 });
 
-// Get all tasks in the database
-router.get("/get", (req, res) => {
-  Task.getTasks((err, tasks) => {
-    if(err) throw err;
+// Get all tasks in the database that are active
+router.get("/get-active", (req, res) => {
+  Task.getActiveTasks((err, tasks) => {
+    if(err) res.json({success: false});
+    res.json(tasks);
+  });
+});
+
+// Get all tasks in the database that are archived
+router.get("/get-archived", (req, res) => {
+  Task.getArchivedTasks((err, tasks) => {
+    if(err) res.json({success: false});
     res.json(tasks);
   });
 });
 
 // Increment the pomodoro count of a task
-router.post("/inc", (req, res) => {
-  Task.incrementPomodoros(req.body.id, (err) => {
-    if(err) throw err;
+router.post("/update", (req, res) => {
+  Task.updateTask(req.body.id, req.body.amount, req.body.length, (err) => {
+    if(err) res.json({success: false});
     res.json({success: true});
   });
 });
@@ -31,7 +38,23 @@ router.post("/inc", (req, res) => {
 // Remove a task
 router.post("/remove", (req, res) => {
   Task.removeTask(req.body.id, (err) => {
-    if(err) throw err;
+    if(err) res.json({success: false});
+    res.json({success: true});
+  });
+});
+
+// Archive a task
+router.post("/archive", (req, res) => {
+  Task.archiveTask(req.body.id, (err) => {
+    if(err) res.json({success: false});
+    res.json({success: true});
+  });
+});
+
+// Activate a task
+router.post("/activate", (req, res) => {
+  Task.activateTask(req.body.id, (err) => {
+    if(err) res.json({success: false});
     res.json({success: true});
   });
 });
