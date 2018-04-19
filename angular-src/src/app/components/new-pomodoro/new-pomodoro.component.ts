@@ -1,13 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from "@angular/router"
 import { TaskService } from '../../services/task.service';
-
-interface Task {
-  name: String,
-  description: String,
-  pomodoros: number,
-  date: Date
-}
+import { Task } from "../../interfaces/task.interface";
 
 @Component({
   selector: 'app-new-pomodoro',

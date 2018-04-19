@@ -1,19 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { TaskService } from '../../services/task.service';
-
-interface Pomodoro {
-  amount: number,
-  length: number,
-  date: Date
-}
-
-interface Task {
-  name: String,
-  description: String,
-  pomodoros: Pomodoro[],
-  active: boolean,
-  total: number
-}
+import { Task } from "../../interfaces/task.interface";
 
 @Component({
   selector: 'app-dashboard',
