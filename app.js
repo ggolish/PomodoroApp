@@ -10,7 +10,7 @@ const cors = require("cors");
 const tasks = require("./routes/task");
 
 // Connect to mongo
-mongoose.connect("mongodb://localhost/pomodoroApp");
+mongoose.connect("mongodb://<dbuser>:<dbpassword>@ds251799.mlab.com:51799/pomodoroapp");
 
 const app = express();
 const port = 3000;
