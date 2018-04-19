@@ -23,9 +23,10 @@ export class TimerComponent implements OnInit {
   timeEllapsed: number;
   pauseOffset: number;
 
-  @Output() notifier: EventEmitter<number> = new EventEmitter<number>();
+  @Output() notifier: EventEmitter<any> = new EventEmitter<any>();
 
   isPaused: boolean;
+  isStopped: boolean;
   startTime: number;
   intervalId: any;
   minutes: String;
@@ -39,6 +40,7 @@ export class TimerComponent implements OnInit {
   constructor(private router: Router) {
     this.timeEllapsed = 0;
     this.isPaused = true;
+    this.isStopped = false;
     this.pauseOffset = 0;
     this.minutes = "00";
     this.seconds = "00";
@@ -83,11 +85,12 @@ export class TimerComponent implements OnInit {
 
   stop() {
     clearInterval(this.intervalId);
-    this.router.navigate(["/dashboard"]);
+    this.isStopped = true;
+    this.notify();
   }
 
   notify() {
-    this.notifier.next(this.timeEllapsed);
+    this.notifier.next({timeEllapsed: this.timeEllapsed, isStopped: this.isStopped});
   }
 
   ngOnInit() {

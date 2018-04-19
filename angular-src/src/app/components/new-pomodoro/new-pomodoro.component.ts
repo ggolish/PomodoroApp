@@ -79,12 +79,16 @@ export class NewPomodoroComponent implements OnInit {
     this.timerStart = start;
   }
 
-  onTimerChange(timeEllapsed: number) {
+  onTimerChange(event: any) {
     let compareValue = (this.roundCounter % 2 == 1) ? this.pomodoroLength : this.breaks[(this.breakCount - 1) % 4];
-    if(timeEllapsed > compareValue) {
+    if(event.timeEllapsed > compareValue) {
       //this.router.navigate(["/dashboard"]);
       this.roundCounter++;
       this.updateTimer();
+    }
+
+    if(event.isStopped) {
+      console.log("Timer should stop!");
     }
   }
 
