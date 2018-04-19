@@ -5,8 +5,9 @@ interface Pomodoro {
 }
 
 export interface Task {
-  name: String,
-  description: String,
+  _id: string
+  name: string,
+  description: string,
   pomodoros: Pomodoro[],
   active: boolean,
   total: number
