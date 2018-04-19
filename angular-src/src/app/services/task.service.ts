@@ -51,4 +51,18 @@ export class TaskService {
       .map(res => res.json());
   }
 
+  updateTask(id: string, amount: number, length: number) {
+    let headers = new Headers();
+    headers.append("Content-Type", "application/json");
+
+    let content = JSON.stringify({
+      id: id,
+      amount: amount,
+      length: length
+    });
+
+    return this.http.post("http://localhost:3000/tasks/update", content, {headers: headers})
+      .map(res => res.json());
+  }
+
 }
