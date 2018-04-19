@@ -9,7 +9,7 @@ export class TaskService {
 
   getTasks(active) {
     let endpoint = (active) ? "get-active" : "get-archived";
-    return this.http.get("http://localhost:3000/tasks/" + endpoint)
+    return this.http.get("tasks/" + endpoint)
       .map(res => res.json());
   }
 
@@ -22,7 +22,7 @@ export class TaskService {
       description: description
     });
 
-    return this.http.post("http://localhost:3000/tasks/add", content, {headers: headers})
+    return this.http.post("tasks/add", content, {headers: headers})
       .map(res => res.json());
   }
 
@@ -34,7 +34,7 @@ export class TaskService {
       id: id
     });
 
-    return this.http.post("http://localhost:3000/tasks/remove", content, {headers: headers})
+    return this.http.post("tasks/remove", content, {headers: headers})
       .map(res => res.json());
   }
 
@@ -47,7 +47,7 @@ export class TaskService {
       id: id
     });
 
-    return this.http.post("http://localhost:3000/tasks/" + endpoint, content, {headers: headers})
+    return this.http.post("tasks/" + endpoint, content, {headers: headers})
       .map(res => res.json());
   }
 
@@ -61,7 +61,7 @@ export class TaskService {
       length: length
     });
 
-    return this.http.post("http://localhost:3000/tasks/update", content, {headers: headers})
+    return this.http.post("tasks/update", content, {headers: headers})
       .map(res => res.json());
   }
 
