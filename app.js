@@ -13,7 +13,7 @@ const tasks = require("./routes/task");
 mongoose.connect("mongodb://<dbuser>:<dbpassword>@ds251799.mlab.com:51799/pomodoroapp");
 
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 8080;
 
 app.use(express.static(path.join(__dirname, "public")));
 
