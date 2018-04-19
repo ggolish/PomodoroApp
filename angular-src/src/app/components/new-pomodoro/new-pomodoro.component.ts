@@ -82,13 +82,25 @@ export class NewPomodoroComponent implements OnInit {
   onTimerChange(event: any) {
     let compareValue = (this.roundCounter % 2 == 1) ? this.pomodoroLength : this.breaks[(this.breakCount - 1) % 4];
     if(event.timeEllapsed > compareValue) {
-      //this.router.navigate(["/dashboard"]);
       this.roundCounter++;
       this.updateTimer();
     }
 
+    // Update task in database when the timer is stopped
     if(event.isStopped) {
-      console.log("Timer should stop!");
+      let id = this.tasks[this.chosenTask]._id;
+      let amount = this.pomodoroCount - 2;
+      if(this.roundCounter % 2 == 1)
+        amount += event.fraction;
+      let length = this.pomodoroLength / 60;
+      this.taskService.updateTask(id, amount, length).subscribe(
+        (data) => {
+          if(!data.success) {
+            alert("Task update failed!");
+          }
+          this.router.navigate(["/dashboard"]);
+        }
+      );
     }
   }
 
