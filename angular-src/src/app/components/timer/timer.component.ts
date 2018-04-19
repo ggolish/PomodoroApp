@@ -90,7 +90,11 @@ export class TimerComponent implements OnInit {
   }
 
   notify() {
-    this.notifier.next({timeEllapsed: this.timeEllapsed, isStopped: this.isStopped});
+    this.notifier.next({
+      timeEllapsed: this.timeEllapsed,
+      isStopped: this.isStopped,
+      fraction: this.timeEllapsed / this.countTime
+    });
   }
 
   ngOnInit() {
