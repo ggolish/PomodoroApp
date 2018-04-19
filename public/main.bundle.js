@@ -27,7 +27,7 @@ var TaskService = (function () {
     }
     TaskService.prototype.getTasks = function (active) {
         var endpoint = (active) ? "get-active" : "get-archived";
-        return this.http.get("http://localhost:3000/tasks/" + endpoint)
+        return this.http.get("tasks/" + endpoint)
             .map(function (res) { return res.json(); });
     };
     TaskService.prototype.addTask = function (name, description) {
@@ -37,7 +37,7 @@ var TaskService = (function () {
             name: name,
             description: description
         });
-        return this.http.post("http://localhost:3000/tasks/add", content, { headers: headers })
+        return this.http.post("tasks/add", content, { headers: headers })
             .map(function (res) { return res.json(); });
     };
     TaskService.prototype.removeTask = function (id) {
@@ -46,7 +46,7 @@ var TaskService = (function () {
         var content = JSON.stringify({
             id: id
         });
-        return this.http.post("http://localhost:3000/tasks/remove", content, { headers: headers })
+        return this.http.post("tasks/remove", content, { headers: headers })
             .map(function (res) { return res.json(); });
     };
     TaskService.prototype.changeTaskStatus = function (id, active) {
@@ -56,7 +56,7 @@ var TaskService = (function () {
         var content = JSON.stringify({
             id: id
         });
-        return this.http.post("http://localhost:3000/tasks/" + endpoint, content, { headers: headers })
+        return this.http.post("tasks/" + endpoint, content, { headers: headers })
             .map(function (res) { return res.json(); });
     };
     TaskService.prototype.updateTask = function (id, amount, length) {
@@ -67,7 +67,7 @@ var TaskService = (function () {
             amount: amount,
             length: length
         });
-        return this.http.post("http://localhost:3000/tasks/update", content, { headers: headers })
+        return this.http.post("tasks/update", content, { headers: headers })
             .map(function (res) { return res.json(); });
     };
     TaskService = __decorate([
