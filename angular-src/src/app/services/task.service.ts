@@ -9,9 +9,9 @@ export class TaskService {
 
   constructor(private http: Http) {
     if(isDevMode()) {
-      let this.url = "https://localhost:8080/";
+      this.url = "http://localhost:8080/";
     } else {
-      let this.url = "";
+      this.url = "";
     }
   }
 
