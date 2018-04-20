@@ -16,6 +16,7 @@ import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 
 import { TaskService } from './services/task.service';
+import { AuthService } from './services/auth.service';
 
 const appRoutes: Routes = [
     {path: "", component: HomeComponent},
@@ -46,7 +47,7 @@ const appRoutes: Routes = [
     HttpModule,
     RouterModule.forRoot(appRoutes)
   ],
-  providers: [TaskService],
+  providers: [TaskService, AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
