@@ -8,6 +8,7 @@ const cors = require("cors");
 
 // Router imports
 const tasks = require("./routes/task");
+const users = require("./routes/user");
 
 // Connect to mongo
 mongoose.connect("mongodb://ggolish:ggolish@ds251799.mlab.com:51799/pomodoroapp");
@@ -21,6 +22,7 @@ app.use(bodyParser.json());
 app.use(cors());
 
 app.use("/tasks", tasks);
+app.use("/users", users);
 
 app.get("/", (req, res) => {
   res.send("PomodoroApp");

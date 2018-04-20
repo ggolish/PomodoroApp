@@ -33,8 +33,8 @@ module.exports.registerUser = function(username, email, password, callback) {
   });
 }
 
-module.exports.validatePassword = function(id, password, callback) {
-  User.findOne({_id: id}, (err, user) => {
+module.exports.validatePassword = function(username, password, callback) {
+  User.findOne({username: username}, (err, user) => {
     if(err) throw err;
     if(!user) {
       callback(null, false);
