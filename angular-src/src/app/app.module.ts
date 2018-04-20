@@ -18,15 +18,16 @@ import { RegisterComponent } from './components/register/register.component';
 import { TaskService } from './services/task.service';
 import { AuthService } from './services/auth.service';
 import { AuthGuardService } from './services/auth-guard.service';
+import { LoginGuardService } from './services/login-guard.service';
 
 const appRoutes: Routes = [
-    {path: "", component: HomeComponent},
+    {path: "", component: HomeComponent, canActivate: [LoginGuardService]},
     {path: "dashboard", component: DashboardComponent, canActivate: [AuthGuardService]},
     {path: "about", component: AboutComponent},
     {path: "new-task", component: NewTaskComponent, canActivate: [AuthGuardService]},
     {path: "new-pomodoro", component: NewPomodoroComponent, canActivate: [AuthGuardService]},
-    {path: "login", component: LoginComponent},
-    {path: "register", component: RegisterComponent}
+    {path: "login", component: LoginComponent, canActivate: [LoginGuardService]},
+    {path: "register", component: RegisterComponent, canActivate: [LoginGuardService]}
 ];
 
 @NgModule({
@@ -51,7 +52,8 @@ const appRoutes: Routes = [
   providers: [
     TaskService,
     AuthService,
-    AuthGuardService
+    AuthGuardService,
+    LoginGuardService
   ],
   bootstrap: [AppComponent]
 })
