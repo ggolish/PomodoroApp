@@ -49,14 +49,14 @@ export class AuthService {
   }
 
   storeUserJWT(user: User, token: string) {
-    localStorage.setItem("id_token", token);
+    localStorage.setItem("token", token);
     localStorage.setItem("user", JSON.stringify(user));
     this.token = token;
     this.user = user;
   }
 
   loadUserJWT() {
-    this.token = localStorage.getItem("id_token");
+    this.token = localStorage.getItem("token");
     this.user = JSON.parse(localStorage.getItem("user"));
   }
 
