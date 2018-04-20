@@ -17,13 +17,14 @@ import { RegisterComponent } from './components/register/register.component';
 
 import { TaskService } from './services/task.service';
 import { AuthService } from './services/auth.service';
+import { AuthGuardService } from './services/auth-guard.service';
 
 const appRoutes: Routes = [
     {path: "", component: HomeComponent},
-    {path: "dashboard", component: DashboardComponent},
+    {path: "dashboard", component: DashboardComponent, canActivate: [AuthGuardService]},
     {path: "about", component: AboutComponent},
-    {path: "new-task", component: NewTaskComponent},
-    {path: "new-pomodoro", component: NewPomodoroComponent},
+    {path: "new-task", component: NewTaskComponent, canActivate: [AuthGuardService]},
+    {path: "new-pomodoro", component: NewPomodoroComponent, canActivate: [AuthGuardService]},
     {path: "login", component: LoginComponent},
     {path: "register", component: RegisterComponent}
 ];
@@ -47,7 +48,11 @@ const appRoutes: Routes = [
     HttpModule,
     RouterModule.forRoot(appRoutes)
   ],
-  providers: [TaskService, AuthService],
+  providers: [
+    TaskService,
+    AuthService,
+    AuthGuardService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
