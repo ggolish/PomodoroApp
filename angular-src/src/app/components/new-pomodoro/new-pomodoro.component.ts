@@ -90,8 +90,11 @@ export class NewPomodoroComponent implements OnInit {
     if(event.isStopped) {
       let id = this.tasks[this.chosenTask]._id;
       let amount = this.pomodoroCount - 2;
-      if(this.roundCounter % 2 == 1)
+      if(this.roundCounter % 2 == 1) {
         amount += event.fraction;
+      } else {
+        amount += 1;
+      }
       let length = this.pomodoroLength / 60;
       this.taskService.updateTask(id, amount, length).subscribe(
         (data) => {
@@ -103,7 +106,7 @@ export class NewPomodoroComponent implements OnInit {
       );
     }
   }
-
+  
   ngOnInit() {
   }
 
