@@ -11,16 +11,20 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { NewTaskComponent } from './components/new-task/new-task.component';
 import { NewPomodoroComponent } from './components/new-pomodoro/new-pomodoro.component';
 import { AboutComponent } from './components/about/about.component';
+import { TimerComponent } from './components/timer/timer.component';
+import { LoginComponent } from './components/login/login.component';
+import { RegisterComponent } from './components/register/register.component';
 
 import { TaskService } from './services/task.service';
-import { TimerComponent } from './components/timer/timer.component';
 
 const appRoutes: Routes = [
     {path: "", component: HomeComponent},
     {path: "dashboard", component: DashboardComponent},
     {path: "about", component: AboutComponent},
     {path: "new-task", component: NewTaskComponent},
-    {path: "new-pomodoro", component: NewPomodoroComponent}
+    {path: "new-pomodoro", component: NewPomodoroComponent},
+    {path: "login", component: LoginComponent},
+    {path: "register", component: RegisterComponent}
 ];
 
 @NgModule({
@@ -32,7 +36,9 @@ const appRoutes: Routes = [
     NewTaskComponent,
     NewPomodoroComponent,
     AboutComponent,
-    TimerComponent
+    TimerComponent,
+    LoginComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
