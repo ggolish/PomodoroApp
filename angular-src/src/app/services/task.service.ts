@@ -1,15 +1,23 @@
-import { Injectable } from '@angular/core';
+import { Injectable, isDevMode } from '@angular/core';
 import { Http, Headers } from '@angular/http';
 import "rxjs/add/operator/map"
 
 @Injectable()
 export class TaskService {
 
-  constructor(private http: Http) { }
+  url: string;
+
+  constructor(private http: Http) {
+    if(isDevMode()) {
+      let this.url = "https://localhost:8080/";
+    } else {
+      let this.url = "";
+    }
+  }
 
   getTasks(active) {
     let endpoint = (active) ? "get-active" : "get-archived";
-    return this.http.get("tasks/" + endpoint)
+    return this.http.get(this.url + "tasks/" + endpoint)
       .map(res => res.json());
   }
 
@@ -22,7 +30,7 @@ export class TaskService {
       description: description
     });
 
-    return this.http.post("tasks/add", content, {headers: headers})
+    return this.http.post(this.url + "tasks/add", content, {headers: headers})
       .map(res => res.json());
   }
 
@@ -34,7 +42,7 @@ export class TaskService {
       id: id
     });
 
-    return this.http.post("tasks/remove", content, {headers: headers})
+    return this.http.post(this.url + "tasks/remove", content, {headers: headers})
       .map(res => res.json());
   }
 
@@ -47,7 +55,7 @@ export class TaskService {
       id: id
     });
 
-    return this.http.post("tasks/" + endpoint, content, {headers: headers})
+    return this.http.post(this.url + "tasks/" + endpoint, content, {headers: headers})
       .map(res => res.json());
   }
 
@@ -61,7 +69,7 @@ export class TaskService {
       length: length
     });
 
-    return this.http.post("tasks/update", content, {headers: headers})
+    return this.http.post(this.url + "tasks/update", content, {headers: headers})
       .map(res => res.json());
   }
 
