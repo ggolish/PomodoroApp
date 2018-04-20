@@ -10,6 +10,7 @@
       "assets": [
         "assets",
         "images/favicon.ico",
+        "images/timer.png",
         "sounds"
       ],
       "index": "index.html",
