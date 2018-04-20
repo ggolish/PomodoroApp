@@ -3,12 +3,12 @@ div {
 }
 
 #timer {
-  font-size: 96pt;
+  font-size: 7em;
   color: white;
   padding: 20px;
   margin-bottom: 20px;
 }
 
 button {
-  width: 200px;
+  width: 10em;
 }
