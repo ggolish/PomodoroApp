@@ -3,7 +3,10 @@
     <img src="../../images/timer.png" width="30" height="30" class="d-inline-block align-top" alt="">
     <b>PomodoroApp</b>
   </a>
-  <div class="collapse navbar-collapse" id="navbarColor01">
+  <button (click)="toggleCollapse()" class="navbar-toggler navbar-toggler-right" type="button">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" [class.show]="show">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item">
         <a class="nav-link" routerLinkActive="active" routerLinkActiveOptions="{exact: true}" routerLink="/dashboard">Dashboard</a>
