@@ -28,6 +28,11 @@ app.get("/", (req, res) => {
   res.send("PomodoroApp");
 });
 
+//app.use(express.static(path.join(__dirname, "public")));
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "public", "index.html"));
+});
+
 app.listen(port, (err) => {
   if(err) throw err;
   console.log("PomodoroApp listening on port " + port);
