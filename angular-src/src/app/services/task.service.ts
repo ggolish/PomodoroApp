@@ -20,11 +20,15 @@ export class TaskService {
     this.authService.loadUserJWT();
     let endpoint = (active) ? "get-active" : "get-archived";
 
+    let headers = new Headers();
+    headers.append("Authorization", this.authService.token);
+
     let params = new URLSearchParams();
     params.set("userid", this.authService.user._id);
 
     let requestOptions = new RequestOptions();
     requestOptions.search = params;
+    requestOptions.headers = headers;
 
     return this.http.get(this.url + "tasks/" + endpoint, requestOptions)
       .map(res => res.json());
@@ -34,6 +38,7 @@ export class TaskService {
     this.authService.loadUserJWT();
     let headers = new Headers();
     headers.append("Content-Type", "application/json");
+    headers.append("Authorization", this.authService.token);
 
     let content = JSON.stringify({
       name: name,
@@ -46,8 +51,10 @@ export class TaskService {
   }
 
   removeTask(id: String) {
+    this.authService.loadUserJWT();
     let headers = new Headers();
     headers.append("Content-Type", "application/json");
+    headers.append("Authorization", this.authService.token);
 
     let content = JSON.stringify({
       id: id
@@ -58,9 +65,11 @@ export class TaskService {
   }
 
   changeTaskStatus(id: String, active: Boolean) {
+    this.authService.loadUserJWT();
     let endpoint = (active) ? "archive" : "activate";
     let headers = new Headers();
     headers.append("Content-Type", "application/json");
+    headers.append("Authorization", this.authService.token);
 
     let content = JSON.stringify({
       id: id
@@ -71,8 +80,10 @@ export class TaskService {
   }
 
   updateTask(id: string, amount: number, length: number) {
+    this.authService.loadUserJWT();
     let headers = new Headers();
     headers.append("Content-Type", "application/json");
+    headers.append("Authorization", this.authService.token);
 
     let content = JSON.stringify({
       id: id,
