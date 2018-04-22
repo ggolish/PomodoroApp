@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { Router } from "@angular/router";
+import { Router, NavigationStart } from "@angular/router";
 
 // Function for padding a number string with a leading zero,
 // should probably put this in a service
@@ -49,6 +49,12 @@ export class TimerComponent implements OnInit {
     this.tickSound.src = "../../../sounds/tick.mp3";
     this.alarmSound = new Audio();
     this.alarmSound.src = "../../../sounds/bell.mp3";
+
+    this.router.events.subscribe(event => {
+      if(event instanceof NavigationStart) {
+        this.stop();
+      }
+    });
   }
 
   start() {
