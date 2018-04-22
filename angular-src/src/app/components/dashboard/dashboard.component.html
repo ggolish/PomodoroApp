@@ -8,6 +8,7 @@
         <th scope="row">Total Time
         <td>{{minuteSum.toFixed(2)}} minutes
     </table>
+    <app-chart></app-chart>
   </div>
   <div *ngIf="pomodoroSum <= 0">
     <p>There are no pomodoros to display.</p>

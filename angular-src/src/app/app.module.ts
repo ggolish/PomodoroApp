@@ -19,6 +19,7 @@ import { TaskService } from './services/task.service';
 import { AuthService } from './services/auth.service';
 import { AuthGuardService } from './services/auth-guard.service';
 import { LoginGuardService } from './services/login-guard.service';
+import { ChartComponent } from './components/chart/chart.component';
 
 const appRoutes: Routes = [
     {path: "", component: HomeComponent, canActivate: [LoginGuardService]},
@@ -41,7 +42,8 @@ const appRoutes: Routes = [
     AboutComponent,
     TimerComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    ChartComponent
   ],
   imports: [
     BrowserModule,
