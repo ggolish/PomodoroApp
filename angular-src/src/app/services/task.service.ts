@@ -1,5 +1,6 @@
 import { Injectable, isDevMode } from '@angular/core';
-import { Http, Headers } from '@angular/http';
+import { Http, Headers, URLSearchParams, RequestOptions } from '@angular/http';
+import { AuthService } from "./auth.service";
 import "rxjs/add/operator/map"
 
 @Injectable()
@@ -7,7 +8,7 @@ export class TaskService {
 
   url: string;
 
-  constructor(private http: Http) {
+  constructor(private http: Http, private authService: AuthService) {
     if(isDevMode()) {
       this.url = "http://localhost:8080/";
     } else {
@@ -16,18 +17,28 @@ export class TaskService {
   }
 
   getTasks(active) {
+    this.authService.loadUserJWT();
     let endpoint = (active) ? "get-active" : "get-archived";
-    return this.http.get(this.url + "tasks/" + endpoint)
+
+    let params = new URLSearchParams();
+    params.set("userid", this.authService.user._id);
+
+    let requestOptions = new RequestOptions();
+    requestOptions.search = params;
+
+    return this.http.get(this.url + "tasks/" + endpoint, requestOptions)
       .map(res => res.json());
   }
 
   addTask(name: String, description: String) {
+    this.authService.loadUserJWT();
     let headers = new Headers();
     headers.append("Content-Type", "application/json");
 
     let content = JSON.stringify({
       name: name,
-      description: description
+      description: description,
+      userid: this.authService.user._id
     });
 
     return this.http.post(this.url + "tasks/add", content, {headers: headers})
