@@ -30,25 +30,30 @@ const taskSchema = new mongoose.Schema({
   active: {
     type: Boolean,
     default: true
+  },
+  userid: {
+    type: String,
+    required: true
   }
 });
 
 const Task = module.exports = mongoose.model("Task", taskSchema);
 
-module.exports.addTask = function(name, description, callback) {
+module.exports.addTask = function(name, description, userid, callback) {
   let newTask = new Task({
     name: name,
-    description: description
+    description: description,
+    userid: userid
   });
   newTask.save(callback);
 }
 
-module.exports.getActiveTasks = function(callback) {
-  Task.find({active: true}, callback);
+module.exports.getActiveTasks = function(userid, callback) {
+  Task.find({userid: userid, active: true}, callback);
 }
 
-module.exports.getArchivedTasks = function(callback) {
-  Task.find({active: false}, callback);
+module.exports.getArchivedTasks = function(userid, callback) {
+  Task.find({userid: userid, active: false}, callback);
 }
 
 module.exports.updateTask = function(id, amount, length, callback) {

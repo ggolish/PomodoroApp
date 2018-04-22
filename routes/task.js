@@ -5,7 +5,7 @@ const Task = require("../models/task");
 
 // Add a new task to the database
 router.post("/add", (req, res) => {
-  Task.addTask(req.body.name, req.body.description, (err) => {
+  Task.addTask(req.body.name, req.body.description, req.body.userid, (err) => {
     if(err) res.json({success: false});
     res.json({success: true});
   });
@@ -13,7 +13,7 @@ router.post("/add", (req, res) => {
 
 // Get all tasks in the database that are active
 router.get("/get-active", (req, res) => {
-  Task.getActiveTasks((err, tasks) => {
+  Task.getActiveTasks(req.query.userid, (err, tasks) => {
     if(err) res.json({success: false});
     res.json(tasks);
   });
@@ -21,7 +21,7 @@ router.get("/get-active", (req, res) => {
 
 // Get all tasks in the database that are archived
 router.get("/get-archived", (req, res) => {
-  Task.getArchivedTasks((err, tasks) => {
+  Task.getArchivedTasks(req.query.userid, (err, tasks) => {
     if(err) res.json({success: false});
     res.json(tasks);
   });
