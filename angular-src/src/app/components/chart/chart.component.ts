@@ -52,6 +52,7 @@ export class ChartComponent implements OnInit {
         }
       }
     }
+    let maxValue = Math.max(...this.lineChartData);
     let ctx = this.canvasRef.nativeElement.getContext("2d");
     this.chart = new Chart(ctx, {
       type: "line",
@@ -65,6 +66,7 @@ export class ChartComponent implements OnInit {
       },
       options: {
         responsive: true,
+        maintainAspectRatio: false,
         title: {
           display: true,
           text: "Activity Last 30 Days"
@@ -75,17 +77,20 @@ export class ChartComponent implements OnInit {
         scales: {
           xAxes: [{
             scaleLabel: {
-              display: true,
-              labelString: "Day"
+              display: false
+            },
+            ticks: {
+              display: false
             }
           }],
           yAxes: [{
             scaleLabel: {
-              display: true,
-              labelString: "Pomodoros"
+              display: false
             },
             ticks: {
-              beginAtZero: true
+              display: false,
+              beginAtZero: true,
+              max: maxValue + 0.5
             }
           }]
         }
