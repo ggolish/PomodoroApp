@@ -52,7 +52,7 @@ export class TimerComponent implements OnInit {
 
     this.router.events.subscribe(event => {
       if(event instanceof NavigationStart) {
-        this.stop();
+        clearInterval(this.intervalId);
       }
     });
   }
