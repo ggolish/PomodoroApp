@@ -28,6 +28,14 @@ router.get("/get-archived", jwt({secret: "secret"}), (req, res) => {
   });
 });
 
+// Get all tasks in database
+router.get("/get-all", jwt({secret: "secret"}), (req, res) => {
+  Task.getAllTasks(req.query.userid, (err, tasks) => {
+    if(err) res.json({success: false});
+    res.json(tasks);
+  });
+});
+
 // Increment the pomodoro count of a task
 router.post("/update", jwt({secret: "secret"}), (req, res) => {
   Task.updateTask(req.body.id, req.body.amount, req.body.length, (err) => {

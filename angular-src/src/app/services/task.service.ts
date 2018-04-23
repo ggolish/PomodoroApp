@@ -34,6 +34,23 @@ export class TaskService {
       .map(res => res.json());
   }
 
+  getAllTasks() {
+    this.authService.loadUserJWT();
+
+    let headers = new Headers();
+    headers.append("Authorization", this.authService.token);
+
+    let params = new URLSearchParams();
+    params.set("userid", this.authService.user._id);
+
+    let requestOptions = new RequestOptions();
+    requestOptions.search = params;
+    requestOptions.headers = headers;
+
+    return this.http.get(this.url + "tasks/get-all", requestOptions)
+      .map(res => res.json());
+  }
+
   addTask(name: String, description: String) {
     this.authService.loadUserJWT();
     let headers = new Headers();

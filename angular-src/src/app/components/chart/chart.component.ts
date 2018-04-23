@@ -29,7 +29,7 @@ export class ChartComponent implements OnInit {
   }
 
   ngAfterViewInit() {
-    this.taskService.getTasks(true).subscribe(tasks => {
+    this.taskService.getAllTasks().subscribe(tasks => {
       this.tasks = tasks;
       console.log(this.tasks);
       this.update();

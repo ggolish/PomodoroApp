@@ -56,6 +56,10 @@ module.exports.getArchivedTasks = function(userid, callback) {
   Task.find({userid: userid, active: false}, callback);
 }
 
+module.exports.getAllTasks = function(userid, callback) {
+  Task.find({userid: userid}, callback);
+}
+
 module.exports.updateTask = function(id, amount, length, callback) {
   Task.update({_id: id}, {$push: {pomodoros: {amount: amount, length: length}}, $inc: {total: amount}}, callback);
 }
