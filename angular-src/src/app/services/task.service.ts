@@ -67,6 +67,23 @@ export class TaskService {
       .map(res => res.json());
   }
 
+  editTask(id: String, name: String, description: String) {
+    this.authService.loadUserJWT();
+    let headers = new Headers();
+    headers.append("Content-Type", "application/json");
+    headers.append("Authorization", this.authService.token);
+
+    let content = JSON.stringify({
+      id: id,
+      name: name,
+      description: description,
+      userid: this.authService.user._id
+    });
+
+    return this.http.post(this.url + "tasks/edit", content, {headers: headers})
+      .map(res => res.json());
+  }
+
   removeTask(id: String) {
     this.authService.loadUserJWT();
     let headers = new Headers();

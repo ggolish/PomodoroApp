@@ -36,6 +36,14 @@ router.get("/get-all", jwt({secret: "secret"}), (req, res) => {
   });
 });
 
+// Edit a task
+router.post("/edit", jwt({secret: "secret"}), (req, res) => {
+  Task.editTask(req.body.id, req.body.name, req.body.description, (err) => {
+    if(err) res.json({success: false});
+    else res.json({success: true});
+  });
+});
+
 // Increment the pomodoro count of a task
 router.post("/update", jwt({secret: "secret"}), (req, res) => {
   Task.updateTask(req.body.id, req.body.amount, req.body.length, (err) => {

@@ -64,6 +64,10 @@ module.exports.updateTask = function(id, amount, length, callback) {
   Task.update({_id: id}, {$push: {pomodoros: {amount: amount, length: length}}, $inc: {total: amount}}, callback);
 }
 
+module.exports.editTask = function(id, name, description, callback) {
+  Task.update({_id: id}, {$set: {name: name, description: description}}, callback);
+}
+
 module.exports.removeTask = function(id, callback) {
   Task.remove({_id: id}, callback);
 }
