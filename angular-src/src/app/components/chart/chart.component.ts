@@ -37,22 +37,18 @@ export class ChartComponent implements OnInit {
   }
 
   update() {
-    this.lineChartLabels = [];
+    this.lineChartLabels = this.lastDays(30);
     this.lineChartData = [];
+    for(let i: number = 0; i < 30; ++i) {
+      this.lineChartData.push(0);
+    }
     let today = new Date();
     for(let t of this.tasks) {
       for(let p of t.pomodoros) {
         let d = new Date(p.date);
-        let millis = today.valueOf() - d.valueOf();
-        let days = millis / (1000 * 60 * 60 * 24);
-        if(days <= 30) {
-          let dstring = this.months[d.getMonth()] + " " + d.getDate();
-          if(this.lineChartLabels.indexOf(dstring) == -1) {
-            this.lineChartLabels.push(dstring);
-            this.lineChartData.push(p.amount);
-          } else {
-            this.lineChartData[this.lineChartLabels.indexOf(dstring)] += p.amount;
-          }
+        let dstring = this.months[d.getMonth()] + " " + d.getDate();
+        if(this.lineChartLabels.indexOf(dstring) > -1) {
+          this.lineChartData[this.lineChartLabels.indexOf(dstring)] += p.amount;
         }
       }
     }
@@ -95,6 +91,18 @@ export class ChartComponent implements OnInit {
         }
       }
     });
+  }
+
+  lastDays(n: number) {
+    let milliDay: number = 24 * 60 * 60 * 1000;
+    let milliCurr: number = Date.now();
+    let days: string[] = [];
+    for(let i: number = 0; i < n; ++i) {
+      let dayCurr: Date = new Date(milliCurr);
+      days.push(this.months[dayCurr.getMonth()] + " " + dayCurr.getDate());
+      milliCurr -= milliDay;
+    }
+    return days.reverse();
   }
 
   ngOnInit() {
