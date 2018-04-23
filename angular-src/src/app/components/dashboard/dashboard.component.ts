@@ -27,6 +27,7 @@ export class DashboardComponent implements OnInit {
       (tasks) => {
         this.activeTasks = tasks
         for(let i = 0; i < this.activeTasks.length; ++i) {
+          this.activeTasks[i].displayDescription = false;
           for(let j = 0; j < this.activeTasks[i].pomodoros.length; ++j) {
             this.pomodoroSum = this.pomodoroSum + this.activeTasks[i].pomodoros[j].amount;
             this.minuteSum += this.activeTasks[i].pomodoros[j].amount * this.activeTasks[i].pomodoros[j].length;
@@ -38,6 +39,7 @@ export class DashboardComponent implements OnInit {
       (tasks) => {
         this.archivedTasks = tasks
         for(let i = 0; i < this.archivedTasks.length; ++i) {
+          this.archivedTasks[i].displayDescription = false;
           for(let j = 0; j < this.archivedTasks[i].pomodoros.length; ++j) {
             this.pomodoroSum += this.archivedTasks[i].pomodoros[j].amount;
             this.minuteSum += this.archivedTasks[i].pomodoros[j].amount * this.archivedTasks[i].pomodoros[j].length;

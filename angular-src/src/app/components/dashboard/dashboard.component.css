@@ -13,3 +13,11 @@ td:nth-child(3) {
 td:first-child {
   width: 25%;
 }
+
+.card-header:hover {
+  cursor: pointer;
+}
+
+.card-text {
+  white-space: pre;
+}

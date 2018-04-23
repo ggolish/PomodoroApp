@@ -14,12 +14,12 @@ import { AboutComponent } from './components/about/about.component';
 import { TimerComponent } from './components/timer/timer.component';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
+import { ChartComponent } from './components/chart/chart.component';
 
 import { TaskService } from './services/task.service';
 import { AuthService } from './services/auth.service';
 import { AuthGuardService } from './services/auth-guard.service';
 import { LoginGuardService } from './services/login-guard.service';
-import { ChartComponent } from './components/chart/chart.component';
 
 const appRoutes: Routes = [
     {path: "", component: HomeComponent, canActivate: [LoginGuardService]},

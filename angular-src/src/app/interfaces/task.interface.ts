@@ -10,5 +10,6 @@ export interface Task {
   description: string,
   pomodoros: Pomodoro[],
   active: boolean,
-  total: number
+  total: number,
+  displayDescription: boolean
 }
