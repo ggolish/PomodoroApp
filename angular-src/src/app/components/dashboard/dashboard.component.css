@@ -19,5 +19,5 @@ td:first-child {
 }
 
 .card-text {
-  white-space: pre;
+  white-space: pre-wrap;
 }
