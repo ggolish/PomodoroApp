@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, NavigationStart, ActivatedRoute } from '@angular/router';
 import { TaskService } from "../../services/task.service";
 import { TaskEditService } from "../../services/task-edit.service";
 
@@ -16,12 +16,21 @@ export class NewTaskComponent implements OnInit {
   constructor(
     private router: Router,
     private taskService: TaskService,
-    private taskEditService: TaskEditService
+    private taskEditService: TaskEditService,
+    private route: ActivatedRoute
   ) {
     if(this.taskEditService.edit) {
       this.name = this.taskEditService.task.name;
       this.description = this.taskEditService.task.description;
     }
+
+    this.router.events.subscribe(event => {
+      if(event instanceof NavigationStart) {
+        if(event.url != "/new-task" && this.taskEditService.edit) {
+          this.taskEditService.edit = false;
+        }
+      }
+    });
   }
 
   addTask() {
