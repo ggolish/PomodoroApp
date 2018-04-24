@@ -16,7 +16,7 @@ export class NewTaskComponent implements OnInit {
   constructor(
     private router: Router,
     private taskService: TaskService,
-    private taskEditService: TaskEditService,
+    public taskEditService: TaskEditService,
     private route: ActivatedRoute
   ) {
     if(this.taskEditService.edit) {

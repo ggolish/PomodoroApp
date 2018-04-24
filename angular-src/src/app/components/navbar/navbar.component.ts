@@ -11,7 +11,7 @@ export class NavbarComponent implements OnInit {
 
   show: boolean = false;
 
-  constructor(private authService: AuthService, private router: Router) { }
+  constructor(public authService: AuthService, private router: Router) { }
 
   toggleCollapse() {
     this.show = !this.show;
