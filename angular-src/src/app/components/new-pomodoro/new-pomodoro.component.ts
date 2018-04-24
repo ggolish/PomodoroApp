@@ -53,7 +53,7 @@ export class NewPomodoroComponent implements OnInit {
     this.roundCounter = this.authService.user.rounds;
     if(this.roundCounter % 2 == 0) this.roundCounter++;
     this.pomodoroCount = Math.ceil(this.roundCounter / 2) % 4;
-    this.breakCount = (this.pomodoroCount == 1) ? 0 : this.pomodoroCount - 2;
+    this.breakCount = this.pomodoroCount - 1;
     this.currentPomodoroCount = 1;
     console.log(this.breakCount);
   }
@@ -91,7 +91,9 @@ export class NewPomodoroComponent implements OnInit {
 
   onTimerChange(event: any) {
     let compareValue = (this.roundCounter % 2 == 1) ? this.pomodoroLength : this.breaks[(this.breakCount - 1) % 4];
-    if(event.timeEllapsed > compareValue) {
+    console.log(event.timeEllapsed);
+    console.log(compareValue);
+    if(event.timeEllapsed > compareValue && !event.isPaused) {
       this.roundCounter++;
       this.updateTimer();
     }

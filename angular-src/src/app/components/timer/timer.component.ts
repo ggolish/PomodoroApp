@@ -58,6 +58,7 @@ export class TimerComponent implements OnInit {
   }
 
   start() {
+    console.log(this.countTime);
     this.startTime = Date.now();
     this.isPaused = false;
     this.intervalId = setInterval(() => {
@@ -96,8 +97,10 @@ export class TimerComponent implements OnInit {
   }
 
   notify() {
+    if(this.isPaused) return;
     this.notifier.next({
       timeEllapsed: this.timeEllapsed,
+      isPaused: this.isPaused,
       isStopped: this.isStopped,
       fraction: this.timeEllapsed / this.countTime
     });
