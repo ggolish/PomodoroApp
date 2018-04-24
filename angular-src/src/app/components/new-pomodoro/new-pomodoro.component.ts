@@ -28,6 +28,7 @@ export class NewPomodoroComponent implements OnInit {
   roundCounter: number;
   pomodoroCount: number;
   breakCount: number;
+  currentPomodoroCount: number;
 
   // Tasks to choose from
   tasks: Task[];
@@ -49,15 +50,18 @@ export class NewPomodoroComponent implements OnInit {
     this.pomodoroLength = 25;
     this.shortBreakLength = 5;
     this.longBreakLength = 15;
-    this.breakCount = 0;
     this.roundCounter = this.authService.user.rounds;
     if(this.roundCounter % 2 == 0) this.roundCounter++;
     this.pomodoroCount = Math.ceil(this.roundCounter / 2) % 4;
+    this.breakCount = (this.pomodoroCount == 1) ? 0 : this.pomodoroCount - 2;
+    this.currentPomodoroCount = 1;
+    console.log(this.breakCount);
   }
 
   updateTimer() {
     if(this.roundCounter % 2 == 1) {
       this.timerStatus = this.tasks[this.chosenTask].name + ": Pomodoro " + this.pomodoroCount++;
+      this.currentPomodoroCount++;
       this.setTimer(this.pomodoroLength);
     } else {
       this.timerStatus = this.tasks[this.chosenTask].name + ": Break " + (this.breakCount + 1);
@@ -95,7 +99,7 @@ export class NewPomodoroComponent implements OnInit {
     // Update task in database when the timer is stopped
     if(event.isStopped) {
       let id = this.tasks[this.chosenTask]._id;
-      let amount = this.pomodoroCount - 2;
+      let amount = this.currentPomodoroCount - 2;
       if(this.roundCounter % 2 == 1) {
         amount += event.fraction;
       } else {
