@@ -91,8 +91,6 @@ export class NewPomodoroComponent implements OnInit {
 
   onTimerChange(event: any) {
     let compareValue = (this.roundCounter % 2 == 1) ? this.pomodoroLength : this.breaks[(this.breakCount - 1) % 4];
-    console.log(event.timeEllapsed);
-    console.log(compareValue);
     if(event.timeEllapsed > compareValue && !event.isPaused) {
       this.roundCounter++;
       this.updateTimer();
