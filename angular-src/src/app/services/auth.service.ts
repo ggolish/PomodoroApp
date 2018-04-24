@@ -55,6 +55,10 @@ export class AuthService {
     this.user = user;
   }
 
+  storeUser() {
+    localStorage.setItem("user", JSON.stringify(this.user));
+  }
+
   loadUserJWT() {
     this.token = localStorage.getItem("token");
     this.user = JSON.parse(localStorage.getItem("user"));
@@ -62,6 +66,25 @@ export class AuthService {
 
   loggedIn() {
     return tokenNotExpired();
+  }
+
+  updateRounds(rounds: number) {
+    this.loadUserJWT();
+
+    this.user.rounds = rounds;
+    this.storeUser();
+
+    let headers = new Headers();
+    headers.append("Content-Type", "application/json");
+    headers.append("Authorization", this.token);
+
+    let content = JSON.stringify({
+      id: this.user._id,
+      rounds: rounds
+    });
+
+    return this.http.post(this.url + "users/update-rounds", content, {headers: headers})
+      .map(res => res.json());
   }
 
 }

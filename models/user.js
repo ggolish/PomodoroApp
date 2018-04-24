@@ -13,6 +13,10 @@ const userSchema = mongoose.Schema({
   password: {
     type: String,
     required: true
+  },
+  rounds: {
+    type: Number,
+    default: 1
   }
 });
 
@@ -45,4 +49,8 @@ module.exports.validatePassword = function(username, password, callback) {
       callback(user, res);
     });
   });
+}
+
+module.exports.updateRounds = function(id, rounds, callback) {
+  User.update({_id: id}, {$set: {rounds: rounds}}, callback);
 }

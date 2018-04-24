@@ -17,7 +17,7 @@
   <div *ngIf="activeTasks.length > 0">
     <div *ngFor="let task of activeTasks" class="card border-primary mb-3">
       <div class="card-header bg-primary text-white" (click)="task.displayDescription=!task.displayDescription">
-        <h4 style="display: inline-block;">{{task.name}}</h4>
+        <h6 style="display: inline-block;">{{task.name}}</h6>
         <div style="float: right">
           <button (click)="archiveTask(task._id)" class="btn btn-primary btn-sm">Archive</button>
           <button (click)="editTask(task)" class="btn btn-primary btn-sm">Edit</button>
@@ -39,7 +39,7 @@
   <div *ngIf="archivedTasks.length > 0">
     <div *ngFor="let task of archivedTasks" class="card border-secondary mb-3">
       <div class="card-header bg-secondary text-white" (click)="task.displayDescription=!task.displayDescription">
-        <h4 style="display: inline-block;">{{task.name}}</h4>
+        <h6 style="display: inline-block;">{{task.name}}</h6>
         <div style="float: right">
           <button (click)="activateTask(task._id)" class="btn btn-secondary btn-sm">Activate</button>
           <button (click)="editTask(task)" class="btn btn-secondary btn-sm">Edit</button>

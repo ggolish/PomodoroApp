@@ -32,8 +32,11 @@ router.post("/login", (req, res) => {
   })
 });
 
-router.get("/test", expressJWT({secret: "secret"}), (req, res) => {
-  res.json({sucess: true});
+router.post("/update-rounds", expressJWT({secret: "secret"}), (req, res) => {
+  User.updateRounds(req.body.id, req.body.rounds, (err) => {
+    if(err) res.json({success: false});
+    else res.json({success: true});
+  });
 });
 
 module.exports = router;
