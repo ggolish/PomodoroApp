@@ -13,20 +13,23 @@ const taskSchema = new mongoose.Schema({
     type: Number,
     default: 0
   },
-  pomodoros: [{
-    amount: {
-      type: Number,
-      default: 1
-    },
-    length: {
-      type: Number,
-      default: 25
-    },
-    date: {
-      type: Date,
-      default: new Date
-    }
-  }],
+  pomodoros: {
+    type: [{
+      amount: {
+        type: Number,
+        default: 0
+      },
+      length: {
+        type: Number,
+        default: 0
+      },
+      date: {
+        type: Date,
+        default: new Date
+      }
+    }],
+    default: {}
+  },
   active: {
     type: Boolean,
     default: true
@@ -48,12 +51,57 @@ module.exports.addTask = function(name, description, userid, callback) {
   newTask.save(callback);
 }
 
-module.exports.getActiveTasks = function(userid, callback) {
-  Task.find({userid: userid, active: true}, callback);
-}
-
-module.exports.getArchivedTasks = function(userid, callback) {
-  Task.find({userid: userid, active: false}, callback);
+module.exports.getTasksByStatus = function(userid, active, callback) {
+  Task.aggregate([
+    {
+      $match: {
+        userid: userid,
+        active: active
+      }
+    },
+    {
+      $project: {
+        _id: "$_id",
+        description: "$description",
+        total: "$total",
+        active: "$active",
+        name: "$name",
+        userid: "$userid",
+        pomodoros: "$pomodoros",
+        sortPomodoro: {
+          $arrayElemAt: ["$pomodoros", -1]
+        }
+      }
+    },
+    {
+      $project: {
+        _id: "$_id",
+        description: "$description",
+        total: "$total",
+        active: "$active",
+        name: "$name",
+        userid: "$userid",
+        pomodoros: "$pomodoros",
+        sortDate: "$sortPomodoro.date"
+      }
+    },
+    {
+      $sort: {
+        "sortDate": -1
+      }
+    },
+    {
+      $project: {
+        _id: "$_id",
+        description: "$description",
+        total: "$total",
+        active: "$active",
+        name: "$name",
+        userid: "$userid",
+        pomodoros: "$pomodoros"
+      }
+    }
+  ], callback);
 }
 
 module.exports.getAllTasks = function(userid, callback) {

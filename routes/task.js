@@ -14,7 +14,7 @@ router.post("/add", jwt({secret: "secret"}), (req, res) => {
 
 // Get all tasks in the database that are active
 router.get("/get-active", jwt({secret: "secret"}), (req, res) => {
-  Task.getActiveTasks(req.query.userid, (err, tasks) => {
+  Task.getTasksByStatus(req.query.userid, true, (err, tasks) => {
     if(err) res.json({success: false});
     res.json(tasks);
   });
@@ -22,7 +22,7 @@ router.get("/get-active", jwt({secret: "secret"}), (req, res) => {
 
 // Get all tasks in the database that are archived
 router.get("/get-archived", jwt({secret: "secret"}), (req, res) => {
-  Task.getArchivedTasks(req.query.userid, (err, tasks) => {
+  Task.getTasksByStatus(req.query.userid, false, (err, tasks) => {
     if(err) res.json({success: false});
     res.json(tasks);
   });
