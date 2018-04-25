@@ -55,7 +55,6 @@ export class NewPomodoroComponent implements OnInit {
     this.pomodoroCount = Math.ceil(this.roundCounter / 2) % 4;
     this.breakCount = this.pomodoroCount - 1;
     this.currentPomodoroCount = 1;
-    console.log(this.breakCount);
   }
 
   updateTimer() {
