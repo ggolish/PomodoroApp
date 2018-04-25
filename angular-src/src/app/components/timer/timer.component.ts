@@ -53,7 +53,7 @@ export class TimerComponent implements OnInit {
     this.isPaused = false;
     this.intervalId = setInterval(() => {
       this.timeEllapsed = Math.floor((Date.now() - this.startTime) / 1000) + this.pauseOffset;
-      this.notify();
+      if(!this.isPaused) this.notify();
       if(this.timeEllapsed <= this.countTime && !this.isPaused) {
         let newTime = this.countTime - this.timeEllapsed;
         this.minutes = this.format.padZero(Math.floor(newTime / 60));
@@ -87,7 +87,6 @@ export class TimerComponent implements OnInit {
   }
 
   notify() {
-    if(this.isPaused) return;
     this.notifier.next({
       timeEllapsed: this.timeEllapsed,
       isPaused: this.isPaused,
