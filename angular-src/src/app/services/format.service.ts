@@ -17,6 +17,14 @@ export class FormatService {
     return this.months[d.getMonth()] + " " + d.getDate();
   }
 
+  getTimeString(d1: Date) {
+    let d = new Date(d1);
+    let hours = this.padZero(d.getHours());
+    let minutes = this.padZero(d.getMinutes());
+    let seconds = this.padZero(d.getSeconds());
+    return hours + ":" + minutes + ":" + seconds;
+  }
+
   // Function for padding a number string with a leading zero
   padZero(n: number) {
     let s = n.toString();
