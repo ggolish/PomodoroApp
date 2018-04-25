@@ -3,6 +3,7 @@ import { Router } from "@angular/router";
 import { TaskService } from '../../services/task.service';
 import { Task } from "../../interfaces/task.interface";
 import { TaskEditService } from "../../services/task-edit.service";
+import { FormatService } from "../../services/format.service";
 
 @Component({
   selector: 'app-dashboard',
@@ -19,7 +20,8 @@ export class DashboardComponent implements OnInit {
   constructor(
     private taskService: TaskService,
     private taskEditService: TaskEditService,
-    private router: Router
+    private router: Router,
+    private format: FormatService
   ) {
     this.activeTasks = this.archivedTasks = [];
     this.pomodoroSum = 0;
@@ -94,6 +96,14 @@ export class DashboardComponent implements OnInit {
   editTask(task) {
     this.taskEditService.editTask(task);
     this.router.navigate(["/new-task"]);
+  }
+
+  getDate(task: Task) {
+    if(task.pomodoros.length > 0) {
+      let d = task.pomodoros[task.pomodoros.length - 1].date;
+      return this.format.getDateString(d) + " " + this.format.getTimeString(d);
+    }
+    return " ---";
   }
 
   ngOnInit() {

@@ -21,3 +21,17 @@ td:first-child {
 .card-text {
   white-space: pre-wrap;
 }
+
+.card-footer {
+  padding: 5px;
+}
+
+.text-muted {
+  display: inline-block;
+  margin: 5px auto;
+}
+
+.badge {
+  float: right;
+  margin: 5px auto;
+}
