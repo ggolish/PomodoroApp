@@ -20,6 +20,7 @@ router.post("/login", (req, res) => {
   User.validatePassword(req.body.username, req.body.password, (user, isMatch) => {
     if(!user) return res.json({success: false, msg: "User not found."});
     if(isMatch) {
+      user.password = "";
       const token = jwt.sign(user.toJSON(), "secret", {expiresIn: 604800});
       res.json({
         success: true,
