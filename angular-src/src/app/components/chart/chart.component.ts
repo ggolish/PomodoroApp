@@ -2,6 +2,7 @@ import { Component, OnInit, ElementRef, ViewChild, AfterViewInit } from '@angula
 import { TaskService } from "../../services/task.service";
 import { Task } from "../../interfaces/task.interface";
 import { Chart } from "chart.js";
+import { FormatService } from "../../services/format.service";
 
 @Component({
   selector: 'app-chart',
@@ -12,10 +13,6 @@ export class ChartComponent implements OnInit {
 
   chart: Chart;
   tasks: Task[];
-  months: string[] = [
-    "Jan", "Feb", "Mar", "Apr", "May", "Jun",
-    "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
-  ];
 
   lineChartData: Array<any>;
   lineChartLabels: Array<any>;
@@ -25,8 +22,10 @@ export class ChartComponent implements OnInit {
   };
 
   @ViewChild("myCanvas") canvasRef: ElementRef;
-  constructor(private taskService: TaskService) {
-  }
+  constructor(
+    private taskService: TaskService,
+    private format: FormatService
+  ) { }
 
   ngAfterViewInit() {
     this.taskService.getAllTasks().subscribe(tasks => {
@@ -45,8 +44,9 @@ export class ChartComponent implements OnInit {
     let today = new Date();
     for(let t of this.tasks) {
       for(let p of t.pomodoros) {
-        let d = new Date(p.date);
-        let dstring = this.months[d.getMonth()] + " " + d.getDate();
+        // let d = new Date(p.date);
+        // let dstring = this.months[d.getMonth()] + " " + d.getDate();
+        let dstring = this.format.getDateString(p.date);
         if(this.lineChartLabels.indexOf(dstring) > -1) {
           this.lineChartData[this.lineChartLabels.indexOf(dstring)] += p.amount;
         }
@@ -103,8 +103,9 @@ export class ChartComponent implements OnInit {
     let milliCurr: number = Date.now();
     let days: string[] = [];
     for(let i: number = 0; i < n; ++i) {
-      let dayCurr: Date = new Date(milliCurr);
-      days.push(this.months[dayCurr.getMonth()] + " " + dayCurr.getDate());
+      // let dayCurr: Date = new Date(milliCurr);
+      // days.push(this.months[dayCurr.getMonth()] + " " + dayCurr.getDate());
+      days.push(this.format.getDateString(new Date(milliCurr)));
       milliCurr -= milliDay;
     }
     return days.reverse();

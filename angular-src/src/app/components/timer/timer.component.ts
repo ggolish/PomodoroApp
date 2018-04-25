@@ -1,15 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Router, NavigationStart } from "@angular/router";
-
-// Function for padding a number string with a leading zero,
-// should probably put this in a service
-function padZero(n: number) {
-  let s = n.toString();
-  if(n <= 9) {
-    s = "0" + s;
-  }
-  return s;
-}
+import { FormatService } from "../../services/format.service";
 
 @Component({
   selector: 'app-timer',
@@ -37,7 +28,7 @@ export class TimerComponent implements OnInit {
   alarmSound: any;
   tickSound: any;
 
-  constructor(private router: Router) {
+  constructor(private router: Router, private format: FormatService) {
     this.timeEllapsed = 0;
     this.isPaused = true;
     this.isStopped = false;
@@ -65,8 +56,8 @@ export class TimerComponent implements OnInit {
       this.notify();
       if(this.timeEllapsed <= this.countTime && !this.isPaused) {
         let newTime = this.countTime - this.timeEllapsed;
-        this.minutes = padZero(Math.floor(newTime / 60));
-        this.seconds = padZero(newTime % 60);
+        this.minutes = this.format.padZero(Math.floor(newTime / 60));
+        this.seconds = this.format.padZero(newTime % 60);
         if(this.seconds != this.oldSeconds) {
           this.tickSound.play();
           this.oldSeconds = this.seconds;

@@ -21,6 +21,7 @@ import { AuthService } from './services/auth.service';
 import { AuthGuardService } from './services/auth-guard.service';
 import { LoginGuardService } from './services/login-guard.service';
 import { TaskEditService } from "./services/task-edit.service";
+import { FormatService } from "./services/format.service";
 
 const appRoutes: Routes = [
     {path: "", component: HomeComponent, canActivate: [LoginGuardService]},
@@ -57,7 +58,8 @@ const appRoutes: Routes = [
     AuthService,
     AuthGuardService,
     LoginGuardService,
-    TaskEditService
+    TaskEditService,
+    FormatService
   ],
   bootstrap: [AppComponent]
 })
