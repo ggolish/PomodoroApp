@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from "../../services/auth.service";
-import { Router } from "@angular/router";
+import { Router, NavigationEnd } from "@angular/router";
 
 @Component({
   selector: 'app-navbar',
@@ -11,7 +11,13 @@ export class NavbarComponent implements OnInit {
 
   show: boolean = false;
 
-  constructor(public authService: AuthService, private router: Router) { }
+  constructor(public authService: AuthService, private router: Router) {
+    this.router.events.subscribe((event) => {
+      if(event instanceof NavigationEnd) {
+        this.show = false;
+      }
+    });
+  }
 
   toggleCollapse() {
     this.show = !this.show;
