@@ -53,6 +53,7 @@ export class NewPomodoroComponent implements OnInit {
     this.roundCounter = this.authService.user.rounds;
     if(this.roundCounter % 2 == 0) this.roundCounter++;
     this.pomodoroCount = Math.ceil(this.roundCounter / 2) % 4;
+    if(this.pomodoroCount == 0) this.pomodoroCount++;
     this.breakCount = this.pomodoroCount - 1;
     this.currentPomodoroCount = 1;
   }
